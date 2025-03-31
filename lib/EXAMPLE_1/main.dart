@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'repository/firebase_repo/firebase_fruit_repository.dart';
 import 'repository/fruit_repository.dart';
-import 'screen/provider/fruit_providerd.dart';
+import 'screen/provider/fruit_provider.dart';
 
 // MAIN
 void main() async {

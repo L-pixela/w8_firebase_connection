@@ -17,4 +17,9 @@ class MockFruitRepository extends FruitRepository {
   Future<List<Fruit>> getFruits() {
     return Future.delayed(Duration(seconds: 1), () => fruits);
   }
+
+  @override
+  Future<void> removeFruit(String id) async {
+    fruits.removeWhere((fruit) => fruit.id == id);
+  }
 }

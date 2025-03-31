@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rest_api/EXAMPLE_1/model/fruit.dart';
-import 'package:flutter_rest_api/EXAMPLE_1/screen/provider/fruit_providerd.dart';
+import 'package:flutter_rest_api/EXAMPLE_1/screen/provider/fruit_provider.dart';
 import 'package:provider/provider.dart';
 
 class AppScreen extends StatelessWidget {
@@ -9,6 +9,11 @@ class AppScreen extends StatelessWidget {
   void _onAddPressed(BuildContext context) {
     final FruitProvider fruitProvider = context.read<FruitProvider>();
     fruitProvider.addFruit("Apple", 2.5);
+  }
+
+  void _onRemovePressed(BuildContext context, String id) {
+    final FruitProvider fruitProvider = context.read<FruitProvider>();
+    fruitProvider.removeFruit(id);
   }
 
   @override
@@ -31,7 +36,7 @@ class AppScreen extends StatelessWidget {
             subtitle: Text("${fruits[index].price}"),
             trailing: IconButton(
                 icon: Icon(Icons.delete, color: Colors.red),
-                onPressed: () => {}),
+                onPressed: () => _onRemovePressed(context, fruits[index].id)),
           ),
         );
       }

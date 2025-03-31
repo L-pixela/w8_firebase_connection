@@ -8,7 +8,8 @@ import '../../model/fruit.dart';
 import '../fruit_repository.dart';
 
 class FirebaseFruitRepository implements FruitRepository {
-  static const String baseUrl = 'YOUR URL';
+  static const String baseUrl =
+      'https://rest-api-a973a-default-rtdb.asia-southeast1.firebasedatabase.app/';
   static const String fruitsCollection = "fruits";
   static const String allFruitsUrl = '$baseUrl/$fruitsCollection.json';
 
@@ -46,5 +47,11 @@ class FirebaseFruitRepository implements FruitRepository {
     return data.entries
         .map((entry) => FruitDto.fromJson(entry.key, entry.value))
         .toList();
+  }
+
+  @override
+  Future<void> removeFruit(String id) async {
+    Uri uri = Uri.parse('$baseUrl/$fruitsCollection/$id.json');
+    await http.delete(uri);
   }
 }
