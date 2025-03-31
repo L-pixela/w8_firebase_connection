@@ -40,11 +40,18 @@ class _FruitFormState extends State<FruitForm> {
               initialValue: _name,
               decoration: InputDecoration(labelText: 'Name'),
               onChanged: (value) => _name = value,
+              validator: (value) =>
+                  value == null || value.isEmpty ? 'Please enter a name' : null,
             ),
             TextFormField(
               initialValue: _price.toString(),
               decoration: InputDecoration(labelText: 'Price'),
               keyboardType: TextInputType.number,
+              validator: (value) => value == null ||
+                      double.tryParse(value) == null ||
+                      double.parse(value) <= 0
+                  ? 'Enter a valid price'
+                  : null,
               onChanged: (value) => _price = double.tryParse(value) ?? 0.0,
             ),
           ],
@@ -57,8 +64,10 @@ class _FruitFormState extends State<FruitForm> {
         ),
         TextButton(
           onPressed: () {
-            widget.onSubmit(_name, _price);
-            Navigator.pop(context);
+            if (_formKey.currentState!.validate()) {
+              widget.onSubmit(_name, _price);
+              Navigator.pop(context);
+            }
           },
           child: Text('Save'),
         ),
