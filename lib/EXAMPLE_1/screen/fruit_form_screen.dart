@@ -18,6 +18,13 @@ class _FruitFormState extends State<FruitForm> {
   String _name = '';
   double _price = 0.0;
 
+  void onSumitted() {
+    if (_formKey.currentState!.validate()) {
+      widget.onSubmit(_name, _price);
+      Navigator.pop(context);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -63,12 +70,7 @@ class _FruitFormState extends State<FruitForm> {
           child: Text('Cancel'),
         ),
         TextButton(
-          onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              widget.onSubmit(_name, _price);
-              Navigator.pop(context);
-            }
-          },
+          onPressed: onSumitted,
           child: Text('Save'),
         ),
       ],
